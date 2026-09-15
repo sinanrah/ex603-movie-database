@@ -1,4 +1,4 @@
-# EX603 Project: MovieDatabase
+# EX603 Project: Movie Database
 
 **Name:** Sinan Rahman  
 **Chosen theme:** Movie / TV
