@@ -1,0 +1,33 @@
+erDiagram
+    users {
+        int user_id PK
+        varchar display_name
+        varchar email
+        date joined_date
+    }
+    movies {
+        int movie_id PK
+        varchar title
+        int release_year
+        int runtime_min
+        boolean is_available
+    }
+    ratings {
+        int user_id PK,FK
+        int movie_id PK,FK
+        int score
+        timestamp rated_at
+    }
+    genres {
+        int genre_id PK
+        varchar name
+    }
+    movie_genres {
+        int movie_id PK,FK
+        int genre_id PK,FK
+    }
+
+    users     ||--o{ ratings      : "writes"
+    movies    ||--o{ ratings      : "receives"
+    movies    ||--o{ movie_genres : "is tagged by"
+    genres    ||--o{ movie_genres : "tags"
