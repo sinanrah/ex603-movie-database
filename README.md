@@ -20,19 +20,30 @@ either an attribute or a constraint in the schema.
 ## Schema:
 
 ![Entity Relationship Diagram](schema/erd.png)
-Five relations:
 
-| Role | Relation |
-|---|---|
-| actor | `users` |
-| producer | `movies` |
-| event | `ratings` |
-| catalog | `genres` |
-| junction | `movie_genres` |
+The full DDL is in [schema/schema.sql](schema/schema.sql). Seven tables:
+
+| Table | Role / construct | What it holds |
+|---|---|---|
+| `users` | actor | Registered users |
+| `movies` | producer | Films and TV series in the catalogue |
+| `ratings` | event | One user's 1–10 score for one movie |
+| `genres` | catalog | Genre categories |
+| `movie_genres` | junction | Which genres each movie is tagged with |
+| `movie_languages` | multivalued attribute | The languages a movie is available in |
+| `episodes` | weak entity | Episodes of a series, keyed by series + season + episode number |
+
+Design decisions to notice:
+- `ratings` uses the composite key `(user_id, movie_id)`, so a user can only rate a movie once.
+- `movies.remake_of_id` is a recursive foreign key linking a remake to its original (`ON DELETE SET NULL`).
+- `movies.release_decade` is a derived attribute generated from `release_year`. Average score is computed at query time.
+- Deleting a user cascades to their ratings, but deleting a movie that has ratings is restricted. Titles are hidden with `is_available` instead.
+- CHECK constraints bound the score (1–10), release year, runtimes, episode numbers, and `content_type`.
 
 Attribute definitions: [schema/schema-definition.md](schema/schema-definition.md)
 Constraints and justifications: [schema/constraints.md](schema/constraints.md)
 Modelling justification and reflection: [analysis/unit1.md](analysis/unit1.md)
+DDL constraints table and CHECK reasoning: [analysis/unit2.md](analysis/unit2.md)
 
 ## Query catalogue:
 
@@ -43,6 +54,11 @@ Modelling justification and reflection: [analysis/unit1.md](analysis/unit1.md)
 ## Video presentation:
 
 ## How to run:
+
+```
+createdb ex603_movies
+psql -d ex603_movies -f schema/schema.sql
+```
 
 ## AI Usage 
 Assistance with Markdown formatting, mermaid.live ERD formatting, insight for deciding domains like movie release year,
