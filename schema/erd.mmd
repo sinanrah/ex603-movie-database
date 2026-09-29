@@ -2,15 +2,18 @@ erDiagram
     users {
         int user_id PK
         varchar display_name
-        varchar email
+        varchar email UK
         date joined_date
     }
     movies {
         int movie_id PK
         varchar title
+        varchar content_type
         int release_year
+        int release_decade "derived"
         int runtime_min
         boolean is_available
+        int remake_of_id FK
     }
     ratings {
         int user_id PK,FK
@@ -20,14 +23,28 @@ erDiagram
     }
     genres {
         int genre_id PK
-        varchar name
+        varchar name UK
     }
     movie_genres {
         int movie_id PK,FK
         int genre_id PK,FK
     }
+    movie_languages {
+        int movie_id PK,FK
+        varchar language PK "multivalued"
+    }
+    episodes {
+        int movie_id PK,FK
+        int season_number PK
+        int episode_number PK
+        varchar title
+        int runtime_min
+    }
 
-    users     ||--o{ ratings      : "writes"
-    movies    ||--o{ ratings      : "receives"
-    movies    ||--o{ movie_genres : "is tagged by"
-    genres    ||--o{ movie_genres : "tags"
+    users     ||--o{ ratings         : "writes"
+    movies    ||--o{ ratings         : "receives"
+    movies    ||--o{ movie_genres    : "is tagged by"
+    genres    ||--o{ movie_genres    : "tags"
+    movies    |o--o{ movies          : "remade as"
+    movies    ||--o{ movie_languages : "available in"
+    movies    ||--o{ episodes        : "has (weak)"
