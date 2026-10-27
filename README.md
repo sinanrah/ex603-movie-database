@@ -47,6 +47,19 @@ DDL constraints table and CHECK reasoning: [analysis/unit2.md](analysis/unit2.md
 
 ## Query catalogue:
 
+### Unit 4
+
+| Query | Business question |
+|---|---|
+| [4.1a](queries/unit4/q4_1.sql) | What are the count, total, average, minimum, and maximum score across all ratings, and how many users rated? |
+| [4.1a check](queries/unit4/q4_1.sql) | Where does the minimum score come from? |
+| [4.1b](queries/unit4/q4_1.sql) | How many ratings does each title have, and what is its average score? |
+| [4.1c](queries/unit4/q4_1.sql) | Which titles have enough ratings for their spam rate to mean anything? |
+| [4.1d](queries/unit4/q4_1.sql) | How do ratings break down by region and status? |
+| [4.2A](queries/unit4/q4_2.sql) | For each title, how many ratings are there and how many were spam? |
+| [4.2B](queries/unit4/q4_2.sql) | What is the spam rate for each region and for the whole platform? |
+| [4.2C](queries/unit4/q4_2.sql) | What is the normal spam rate for a high-volume title? |
+
 ## Technical highlights:
 
 ## What I would do differently:
@@ -58,6 +71,14 @@ DDL constraints table and CHECK reasoning: [analysis/unit2.md](analysis/unit2.md
 ```
 createdb ex603_movies
 psql -d ex603_movies -f schema/schema.sql
+```
+
+The queries in `/queries` run against the course's provided Movie/TV dataset (`movies.sql`), loaded into its own database:
+
+```
+createdb ex603_data
+psql -d ex603_data -f movies.sql
+psql -d ex603_data -f queries/unit4/q4_1.sql
 ```
 
 ## AI Usage 
