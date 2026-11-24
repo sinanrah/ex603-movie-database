@@ -126,7 +126,7 @@ The dataset covers one year and only 200 ratings, with 12 of them spam. That is 
 
 ## Video presentation
 
-[Watch the presentation](VIDEO_LINK_HERE)
+[Watch the presentation](https://youtu.be/c3kjfQY6MTc)
 
 ## How to run
 
@@ -148,4 +148,4 @@ psql -d ex603_movies -f schema/schema.sql
 ## AI Usage
 
 Assistance with Markdown formatting, mermaid.live ERD formatting, insight for deciding domains like movie release year,
-insight into other approaches designers could make, specifically about my primary key. For Unit 6, Claude helped draft the queries and write-ups, which I ran against the dataset and checked.
+insight into other approaches designers could make, specifically about my primary key. For Unit 6, I used Claude to help draft the write-ups.
