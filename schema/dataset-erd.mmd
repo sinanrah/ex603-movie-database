@@ -1,0 +1,53 @@
+erDiagram
+    users {
+        int user_id PK
+        varchar user_name
+        date signup_date
+        varchar country
+        varchar email UK
+        int invited_by FK
+        boolean is_active
+    }
+    movies {
+        int movie_id PK
+        varchar title
+        date added_on
+        varchar origin_country
+        varchar imdb_code UK
+        smallint release_year
+        boolean is_available
+    }
+    ratings {
+        bigint rating_id PK
+        int user_id FK
+        int movie_id FK
+        timestamp rated_at
+        timestamp reviewed_at
+        varchar device_country
+        numeric score
+        numeric watch_minutes
+        numeric weight
+        varchar rating_status
+        varchar withdrawn_reason
+    }
+    genres {
+        int genre_id PK
+        varchar genre_name UK
+        varchar genre_description
+    }
+    movie_genres {
+        int movie_id PK, FK
+        int genre_id PK, FK
+        date tagged_on
+    }
+    movie_languages {
+        int movie_id PK, FK
+        char language_code PK
+    }
+
+    users ||--o{ ratings : "makes"
+    movies ||--o{ ratings : "receives"
+    users |o--o{ users : "invited"
+    movies ||--o{ movie_genres : "tagged with"
+    genres ||--o{ movie_genres : "applies to"
+    movies ||--o{ movie_languages : "available in"
